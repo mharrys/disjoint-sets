@@ -16,6 +16,7 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include "disjoint_sets.hpp"
 
+#include <algorithm>
 #include <sstream>
 
 disjoint_sets::disjoint_sets(int elements)
@@ -52,13 +53,16 @@ std::string disjoint_sets::to_string()
     return ss.str();
 }
 
-        while (p->value != p->parent->value)
-            ss << p->parent->value << " ";
+int disjoint_sets::max_rank()
+{
+    if (sets.empty())
+        return 0;
 
-        ss << "\n";
-    }
+    std::vector<int> counts(sets.size(), 0);
+    for (auto i = 0; i < sets.size(); i++)
+        counts[find(i)]++;
 
-    return ss.str();
+    return *std::max_element(counts.begin(), counts.end());
 }
 
 void disjoint_sets::make_link(int a, int b)

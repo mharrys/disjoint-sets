@@ -119,6 +119,30 @@ TEST(DisjointSetsTest, ComplexSet)
     EXPECT_FALSE(sets.same(2, 17));
 }
 
+TEST(DisjointSetsTest, MaxRank)
+{
+    disjoint_sets sets1(0);
+    EXPECT_EQ(sets1.max_rank(), 0);
+
+    disjoint_sets sets2(5);
+    EXPECT_EQ(sets2.max_rank(), 1);
+
+    sets2.make_union(1, 2);
+    sets2.make_union(3, 4);
+    EXPECT_EQ(sets2.max_rank(), 2);
+
+    sets2.make_union(4, 0);
+    EXPECT_EQ(sets2.max_rank(), 3);
+
+    sets2.make_union(0, 1);
+    EXPECT_EQ(sets2.max_rank(), 5);
+
+    disjoint_sets sets3(1000);
+    for (auto i = 1; i < 1000; i++)
+        sets3.make_union(i, i - 1);
+    EXPECT_EQ(sets3.max_rank(), 1000);
+}
+
 int main(int argc, char ** argv)
 {
     ::testing::InitGoogleMock(&argc, argv);
