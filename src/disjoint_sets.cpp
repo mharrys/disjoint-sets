@@ -42,15 +42,15 @@ bool disjoint_sets::same(int a, int b)
     return a == b ? true : find(a) == find(b);
 }
 
-std::string disjoint_sets::to_string() const
+std::string disjoint_sets::to_string()
 {
     std::stringstream ss;
 
-    for (auto i = 0u; i < sets.size(); i++) {
-        ss << "[" << i << "]: ";
+    for (auto i = 0; i < sets.size(); i++)
+        ss << "[" << i << "]: " << find(i) << "\n";
 
-        auto * p = &sets[i];
-        ss << p->value << " ";
+    return ss.str();
+}
 
         while (p->value != p->parent->value)
             ss << p->parent->value << " ";

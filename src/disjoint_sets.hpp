@@ -35,8 +35,9 @@ public:
     // Validate if if a and b are in the same set. Return true if they are in the same
     // set, false otherwise.
     bool same(int a, int b);
-    // Return a string representation of the disjoint set.
-    std::string to_string() const;
+    // Return a string representation of the disjoint set. Each index will
+    // show which set it belongs to.
+    std::string to_string();
 private:
     // Link a and b, the parent is decided by rank.
     void make_link(int a, int b);
